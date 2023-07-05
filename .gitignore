@@ -1,0 +1,10 @@
+articles/
+books/
+articles/*.pdf
+articles/*.ps
+articles/*.dvi
+articles/*.djvu
+*.pdf
+*.ps
+*.dvi
+*.djvu
