@@ -1,0 +1,81 @@
+<h1
+id="the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel">The
+eXpress Data Path: Fast Programmable Packet Processing in the Operating
+System Kernel</h1>
+<h2 id="summary">Summary</h2>
+<p>The eXpress Data Path (XDP) allows packets to be processed close to
+the hardware. It is programmable by using eBPF programs to control what
+happens to packets. The creation of XDP was motivated by poor
+performance of the Linux network stack in high packet environments.
+Alternatives such as DPDK achieve greater performance, but lack some of
+the features of XDP such as reprogramability, and stablity/safety.</p>
+<h2 id="opinion">Opinion</h2>
+<p>I think this is a good paper. It must battle the excellent
+performance of DPDK by presenting compelling features to make up for the
+performance delta. I think it mostly presents these features, but they
+could be more present throughout the narrative of the work.</p>
+<h3 id="quality-as-a-paper">Quality as a Paper</h3>
+<p>It is pretty well organized and cohesive. The section titles are
+boring, but on a first read the descrption of the evaluations is nice.
+The figures and listings they have throughout help their case.</p>
+<h3 id="quality-as-an-idea">Quality as an Idea</h3>
+<p>I think the idea is good. I don’t know how difficult it is to use
+DPDK though. It seems like a huge barrier to entry to have to re-create
+so many networking constructs in user-space. XDP eliminates a lot of
+that barrier, but at the cost of some performance.</p>
+<p>It is interesting how it incorporates parts of kernel-bypass without
+fully bypassing the kernel.</p>
+<h3 id="do-i-like-it">Do I like it</h3>
+<p>Yes I like the paper and the idea. It seems like a good idea with
+lots of use cases. They wanted a system that integrated well with Linux,
+so they used that as a guiding design principle, which is the way it
+must be done to integrate into a system as mature as Linux.</p>
+<h2 id="what-problem-is-it-trying-to-solve">What Problem is it Trying to
+Solve</h2>
+<p>The Linux kernel networking stack is too solve for high packet
+enviornments.</p>
+<h2 id="how-does-their-approach-differ-from-previous-ones">How does
+their approach differ from previous ones</h2>
+<p>Other approaches like DPDK use kernel-bypass exclusively to achieve
+better performance. XDP does not bypass the kernel, but it can bypass
+the kernel networking stack. For enviornments with high packet needs,
+small performance penalties can drastically reduce the performance of
+the system. The linux kernel stack is full of these, so bypassing it
+early can greatly improve performance.</p>
+<p>The approach also functions in software, rather than in hardware with
+something like an FPGA or ASIC.</p>
+<h2 id="how-much-previous-work-do-i-know-about">How much previous work
+do I know about</h2>
+<p>I know alot about the eBPF stuff, but none of the networking type
+things. I’ve heard about DPDK.</p>
+<h3 id="to-read-related-works">To Read Related Works</h3>
+<ul>
+<li>Comparison of Frameworks for High-Performance Packet IO.</li>
+<li>MegaPipe: A New Programming Interface for Scalable Network I/O</li>
+<li>PacketShader: a GPU-accelerated software router !!</li>
+<li>RouteBricks: exploiting parallelism to scale software routers</li>
+<li>P4: Programming protocol-independent packet processors.</li>
+</ul>
+<h3 id="to-read-works-that-cite-xdp">To Read Works that Cite XDP</h3>
+<ul>
+<li>OXDP: Offloading XDP to SmartNIC for Accelerating Packet
+Processing</li>
+<li>Comparing User Space and In-Kernel Packet Processing for Edge Data
+Centers</li>
+<li>I/O Is Faster Than the CPU: Let’s Partition Resources and Eliminate
+(Most) OS Abstractions</li>
+</ul>
+<h2 id="does-it-work">Does it Work?</h2>
+<p>Yes! The results shown in the paper are very promising. The ease of
+integration, programability, and safety given by XDP, along with the
+performance it offers presents a compelling case for XDP.</p>
+<h2 id="what-could-be-improved">What could be improved?</h2>
+<ol type="1">
+<li>The performance delta between DPDK and XDP is still there, so that
+could be improved.</li>
+<li>Could more processing be done in BPF program outside of the
+kernel?</li>
+<li>We inherit eBPF security concerns and verifier constraints.</li>
+<li>What is the support for XDP like in 2023, 5 years after the
+paper?</li>
+</ol>
